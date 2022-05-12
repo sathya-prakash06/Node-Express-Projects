@@ -50,10 +50,10 @@ Email Validation Regex
 
 #### Security
 
-- helmet
-- cors
-- xss-clean
-- express-rate-limit
+- helmet - helmet is used to secure the server
+- cors - cors is used to allow cross origin resource sharing
+- xss-clean - xss-clean is used to clean the input
+- express-rate-limit - express-rate-limit is used to limit the number of requests
 
 Swagger UI
 
