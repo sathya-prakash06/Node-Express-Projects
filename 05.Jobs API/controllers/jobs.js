@@ -1,4 +1,3 @@
-const router = require("../routes/auth");
 
 const getAllJobs = (req, res) => {
   res.send("getAllJobs");
@@ -28,5 +27,4 @@ module.exports = {
   deleteJob,
 };
 
-router.route("/").post(createJob).get(getAllJobs); 
-router.route("/:id").get(getJob).put(updateJob).delete(deleteJob);
+
