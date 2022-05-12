@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new Schema({
   name: {
@@ -28,5 +30,26 @@ const userSchema = new Schema({
     maxlength: [200, "Password must be at most 20 characters long"],
   },
 });
+
+// Hash password before saving using bcrypt
+userSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
+userSchema.methods.getName = function () {
+  return this.name;
+};
+
+userSchema.methods.createJWT = function () {
+  return jwt.sign(
+    { userId: this._id, name: this.name },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "10d",
+    }
+  );
+};
 
 module.exports = mongoose.model("User", userSchema);
